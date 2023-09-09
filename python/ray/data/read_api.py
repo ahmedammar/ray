@@ -64,6 +64,7 @@ from ray.data.datasource import (
     SQLDatasource,
     TextDatasource,
     TFRecordDatasource,
+    TorchDatasource,
     WebDatasetDatasource,
 )
 from ray.data.datasource._default_metadata_providers import (
@@ -2313,7 +2314,7 @@ def from_torch(
     Returns:
         A :class:`MaterializedDataset` containing the Torch dataset samples.
     """  # noqa: E501
-    return from_items(list(dataset))
+    return read_datasource(TorchDatasource(), dataset=dataset, parallelism=2)
 
 
 def _get_reader(
